@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import *
+from .models import PersonalInfo, Experience, Education, Skill, Project, Achievement, Contact
 
 class PersonalInfoSerializer(serializers.ModelSerializer):
     class Meta:

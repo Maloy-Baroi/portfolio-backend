@@ -1,5 +1,4 @@
 from django.db import models
-from django.core.validators import URLValidator
 
 class PersonalInfo(models.Model):
     name = models.CharField(max_length=100)

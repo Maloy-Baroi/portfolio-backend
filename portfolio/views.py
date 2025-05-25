@@ -1,8 +1,16 @@
 from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from .models import *
-from .serializers import *
+from .models import PersonalInfo, Experience, Education, Skill, Project, Achievement, Contact
+from .serializers import (
+    PersonalInfoSerializer, 
+    ExperienceSerializer, 
+    EducationSerializer, 
+    SkillSerializer, 
+    ProjectSerializer, 
+    AchievementSerializer, 
+    ContactSerializer
+)
 
 class PersonalInfoView(generics.RetrieveAPIView):
     queryset = PersonalInfo.objects.all()
