@@ -1,13 +1,21 @@
-from django.urls import path
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
 from . import views
 
+router = DefaultRouter()
+router.register(r'profiles', views.ProfileViewSet, basename='profile')
+router.register(r'experiences', views.ExperienceViewSet, basename='experience')
+router.register(r'educations', views.EducationViewSet, basename='education')
+router.register(r'test-scores', views.StandardizedTestViewSet, basename='test-score')
+router.register(r'test-sections', views.TestSectionViewSet, basename='test-section')
+router.register(r'skill-categories', views.TechnicalSkillCategoryViewSet, basename='skill-category')
+router.register(r'skills', views.TechnicalSkillViewSet, basename='skill')
+router.register(r'languages', views.LanguageViewSet, basename='language')
+router.register(r'activities', views.ExtraCurricularActivityViewSet, basename='activity')
+router.register(r'achievements', views.AchievementViewSet, basename='achievement')
+router.register(r'references', views.ReferenceViewSet, basename='reference')
+router.register(r'projects', views.ProjectViewSet, basename='project')
+
 urlpatterns = [
-    path('personal-info/', views.PersonalInfoView.as_view(), name='personal-info'),
-    path('experience/', views.ExperienceListView.as_view(), name='experience'),
-    path('education/', views.EducationListView.as_view(), name='education'),
-    path('skills/', views.SkillListView.as_view(), name='skills'),
-    path('skills-by-category/', views.skills_by_category, name='skills-by-category'),
-    path('projects/', views.ProjectListView.as_view(), name='projects'),
-    path('achievements/', views.AchievementListView.as_view(), name='achievements'),
-    path('contact/', views.ContactCreateView.as_view(), name='contact'),
+    path('api/v1/', include(router.urls)),
 ]
