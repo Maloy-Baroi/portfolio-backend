@@ -17,5 +17,5 @@ router.register(r'references', views.ReferenceViewSet, basename='reference')
 router.register(r'projects', views.ProjectViewSet, basename='project')
 
 urlpatterns = [
-    path('api/v1/', include(router.urls)),
+    path('v1/', include(router.urls)),
 ]
