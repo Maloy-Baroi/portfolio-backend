@@ -3,7 +3,7 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-your-secret-key-here-change-in-production'
+SECRET_KEY = 'p3o&w8*i$af4)nsb%65k=pyt@%9fkgo9=15^nxqz=o+z!w6i8'
 DEBUG = True
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
@@ -16,6 +16,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
+    # Third-party Apps
+    'drf_yasg',
+
+    # Custom Apps
     'portfolio',
 ]
 

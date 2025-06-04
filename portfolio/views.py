@@ -8,10 +8,10 @@ from .serializers import *
 
 class ProfileViewSet(viewsets.ModelViewSet):
     serializer_class = ProfileSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.AllowAny]
 
     def get_queryset(self):
-        return Profile.objects.filter(user=self.request.user)
+        return Profile.objects.filter()
 
     def get_serializer_class(self):
         if self.action == 'list':
@@ -19,7 +19,7 @@ class ProfileViewSet(viewsets.ModelViewSet):
         return ProfileSerializer
 
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+        serializer.save()
 
     @action(detail=True, methods=['get'])
     def resume_data(self, request, pk=None):
@@ -31,175 +31,175 @@ class ProfileViewSet(viewsets.ModelViewSet):
 
 class ExperienceViewSet(viewsets.ModelViewSet):
     serializer_class = ExperienceSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.AllowAny]
 
     def get_queryset(self):
         profile_id = self.request.query_params.get('profile_id')
         if profile_id:
-            return Experience.objects.filter(profile__user=self.request.user, profile_id=profile_id)
-        return Experience.objects.filter(profile__user=self.request.user)
+            return Experience.objects.filter(profile_id=profile_id)
+        return Experience.objects.all()
 
     def perform_create(self, serializer):
         profile_id = self.request.data.get('profile')
-        profile = get_object_or_404(Profile, id=profile_id, user=self.request.user)
+        profile = get_object_or_404(Profile, id=profile_id)
         serializer.save(profile=profile)
 
 
 class EducationViewSet(viewsets.ModelViewSet):
     serializer_class = EducationSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.AllowAny]
 
     def get_queryset(self):
         profile_id = self.request.query_params.get('profile_id')
         if profile_id:
-            return Education.objects.filter(profile__user=self.request.user, profile_id=profile_id)
-        return Education.objects.filter(profile__user=self.request.user)
+            return Education.objects.filter(profile_id=profile_id)
+        return Education.objects.all()
 
     def perform_create(self, serializer):
         profile_id = self.request.data.get('profile')
-        profile = get_object_or_404(Profile, id=profile_id, user=self.request.user)
+        profile = get_object_or_404(Profile, id=profile_id)
         serializer.save(profile=profile)
 
 
 class StandardizedTestViewSet(viewsets.ModelViewSet):
     serializer_class = StandardizedTestSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.AllowAny]
 
     def get_queryset(self):
         profile_id = self.request.query_params.get('profile_id')
         if profile_id:
-            return StandardizedTest.objects.filter(profile__user=self.request.user, profile_id=profile_id)
-        return StandardizedTest.objects.filter(profile__user=self.request.user)
+            return StandardizedTest.objects.filter(profile_id=profile_id)
+        return StandardizedTest.objects.all()
 
     def perform_create(self, serializer):
         profile_id = self.request.data.get('profile')
-        profile = get_object_or_404(Profile, id=profile_id, user=self.request.user)
+        profile = get_object_or_404(Profile, id=profile_id)
         serializer.save(profile=profile)
 
 
 class TestSectionViewSet(viewsets.ModelViewSet):
     serializer_class = TestSectionSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.AllowAny]
 
     def get_queryset(self):
         test_id = self.request.query_params.get('test_id')
         if test_id:
-            return TestSection.objects.filter(test__profile__user=self.request.user, test_id=test_id)
-        return TestSection.objects.filter(test__profile__user=self.request.user)
+            return TestSection.objects.filter(test_id=test_id)
+        return TestSection.objects.all()
 
     def perform_create(self, serializer):
         test_id = self.request.data.get('test')
-        test = get_object_or_404(StandardizedTest, id=test_id, profile__user=self.request.user)
+        test = get_object_or_404(StandardizedTest, id=test_id)
         serializer.save(test=test)
 
 
 class TechnicalSkillCategoryViewSet(viewsets.ModelViewSet):
     serializer_class = TechnicalSkillCategorySerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.AllowAny]
 
     def get_queryset(self):
         profile_id = self.request.query_params.get('profile_id')
         if profile_id:
-            return TechnicalSkillCategory.objects.filter(profile__user=self.request.user, profile_id=profile_id)
-        return TechnicalSkillCategory.objects.filter(profile__user=self.request.user)
+            return TechnicalSkillCategory.objects.filter(profile_id=profile_id)
+        return TechnicalSkillCategory.objects.all()
 
     def perform_create(self, serializer):
         profile_id = self.request.data.get('profile')
-        profile = get_object_or_404(Profile, id=profile_id, user=self.request.user)
+        profile = get_object_or_404(Profile, id=profile_id)
         serializer.save(profile=profile)
 
 
 class TechnicalSkillViewSet(viewsets.ModelViewSet):
     serializer_class = TechnicalSkillSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.AllowAny]
 
     def get_queryset(self):
         category_id = self.request.query_params.get('category_id')
         if category_id:
-            return TechnicalSkill.objects.filter(category__profile__user=self.request.user, category_id=category_id)
-        return TechnicalSkill.objects.filter(category__profile__user=self.request.user)
+            return TechnicalSkill.objects.filter(category_id=category_id)
+        return TechnicalSkill.objects.all()
 
     def perform_create(self, serializer):
         category_id = self.request.data.get('category')
-        category = get_object_or_404(TechnicalSkillCategory, id=category_id, profile__user=self.request.user)
+        category = get_object_or_404(TechnicalSkillCategory, id=category_id)
         serializer.save(category=category)
 
 
 class LanguageViewSet(viewsets.ModelViewSet):
     serializer_class = LanguageSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.AllowAny]
 
     def get_queryset(self):
         profile_id = self.request.query_params.get('profile_id')
         if profile_id:
-            return Language.objects.filter(profile__user=self.request.user, profile_id=profile_id)
-        return Language.objects.filter(profile__user=self.request.user)
+            return Language.objects.filter(profile_id=profile_id)
+        return Language.objects.all()
 
     def perform_create(self, serializer):
         profile_id = self.request.data.get('profile')
-        profile = get_object_or_404(Profile, id=profile_id, user=self.request.user)
+        profile = get_object_or_404(Profile, id=profile_id)
         serializer.save(profile=profile)
 
 
 class ExtraCurricularActivityViewSet(viewsets.ModelViewSet):
     serializer_class = ExtraCurricularActivitySerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.AllowAny]
 
     def get_queryset(self):
         profile_id = self.request.query_params.get('profile_id')
         if profile_id:
-            return ExtraCurricularActivity.objects.filter(profile__user=self.request.user, profile_id=profile_id)
-        return ExtraCurricularActivity.objects.filter(profile__user=self.request.user)
+            return ExtraCurricularActivity.objects.filter(profile_id=profile_id)
+        return ExtraCurricularActivity.objects.all()
 
     def perform_create(self, serializer):
         profile_id = self.request.data.get('profile')
-        profile = get_object_or_404(Profile, id=profile_id, user=self.request.user)
+        profile = get_object_or_404(Profile, id=profile_id)
         serializer.save(profile=profile)
 
 
 class AchievementViewSet(viewsets.ModelViewSet):
     serializer_class = AchievementSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.AllowAny]
 
     def get_queryset(self):
         profile_id = self.request.query_params.get('profile_id')
         if profile_id:
-            return Achievement.objects.filter(profile__user=self.request.user, profile_id=profile_id)
-        return Achievement.objects.filter(profile__user=self.request.user)
+            return Achievement.objects.filter(profile_id=profile_id)
+        return Achievement.objects.all()
 
     def perform_create(self, serializer):
         profile_id = self.request.data.get('profile')
-        profile = get_object_or_404(Profile, id=profile_id, user=self.request.user)
+        profile = get_object_or_404(Profile, id=profile_id)
         serializer.save(profile=profile)
 
 
 class ReferenceViewSet(viewsets.ModelViewSet):
     serializer_class = ReferenceSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.AllowAny]
 
     def get_queryset(self):
         profile_id = self.request.query_params.get('profile_id')
         if profile_id:
-            return Reference.objects.filter(profile__user=self.request.user, profile_id=profile_id)
-        return Reference.objects.filter(profile__user=self.request.user)
+            return Reference.objects.filter(profile_id=profile_id)
+        return Reference.objects.all()
 
     def perform_create(self, serializer):
         profile_id = self.request.data.get('profile')
-        profile = get_object_or_404(Profile, id=profile_id, user=self.request.user)
+        profile = get_object_or_404(Profile, id=profile_id)
         serializer.save(profile=profile)
 
 
 class ProjectViewSet(viewsets.ModelViewSet):
     serializer_class = ProjectSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.AllowAny]
 
     def get_queryset(self):
         profile_id = self.request.query_params.get('profile_id')
         if profile_id:
-            return Project.objects.filter(profile__user=self.request.user, profile_id=profile_id)
-        return Project.objects.filter(profile__user=self.request.user)
+            return Project.objects.filter(profile_id=profile_id)
+        return Project.objects.all()
 
     def perform_create(self, serializer):
         profile_id = self.request.data.get('profile')
-        profile = get_object_or_404(Profile, id=profile_id, user=self.request.user)
+        profile = get_object_or_404(Profile, id=profile_id)
         serializer.save(profile=profile)

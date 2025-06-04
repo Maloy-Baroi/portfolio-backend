@@ -6,7 +6,6 @@ import uuid
 
 class Profile(models.Model):
     """Main profile model for user basic information"""
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     full_name = models.CharField(max_length=100)
     title = models.CharField(max_length=100)
     address = models.TextField()
