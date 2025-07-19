@@ -2,6 +2,8 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from . import views
 
+app_name = 'portfolio'
+
 router = DefaultRouter()
 router.register(r'profiles', views.ProfileViewSet, basename='profile')
 router.register(r'experiences', views.ExperienceViewSet, basename='experience')
